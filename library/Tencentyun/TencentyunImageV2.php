@@ -1,8 +1,7 @@
 <?php
 
-namespace Tencentyun;
 
-class ImageV2
+class TencentyunImageV2
 {
     // 30 days
     const EXPIRED_SECONDS = 2592000;
@@ -45,7 +44,7 @@ class ImageV2
 
         $expired = time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($bucket, $userid, $fileid);
-        $sign = Auth::getAppSignV2($bucket, $fileid, $expired);
+        $sign = TencentyunAuth::getAppSignV2($bucket, $fileid, $expired);
 
         // add get params to url
         if (isset($params['get']) && is_array($params['get'])) {
@@ -79,8 +78,8 @@ class ImageV2
             ),
         );
 
-        $rsp = Http::send($req);
-        $info = Http::info();
+        $rsp = TencentyunHttp::send($req);
+        $info = TencentyunHttp::info();
         $ret = json_decode($rsp, true);
         if ($ret) {
             if (0 === $ret['code']) {
@@ -120,7 +119,7 @@ class ImageV2
 
         $expired = time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($bucket, $userid, $fileid);
-        $sign = Auth::getAppSignV2($bucket, $fileid, $expired);
+        $sign = TencentyunAuth::getAppSignV2($bucket, $fileid, $expired);
 
         $req = array(
             'url' => $url,
@@ -131,8 +130,8 @@ class ImageV2
             ),
         );
 
-        $rsp = Http::send($req);
-        $info = Http::info();
+        $rsp = TencentyunHttp::send($req);
+        $info = TencentyunHttp::info();
         $ret = json_decode($rsp, true);
         if ($ret) {
             if (0 === $ret['code']) {
@@ -163,7 +162,7 @@ class ImageV2
 
         $expired = 0;
         $url = self::generateResUrl($bucket, $userid, $fileid, 'copy');
-        $sign = Auth::getAppSignV2($bucket, $fileid, $expired);
+        $sign = TencentyunAuth::getAppSignV2($bucket, $fileid, $expired);
 
         $req = array(
             'url' => $url,
@@ -174,8 +173,8 @@ class ImageV2
             ),
         );
 
-        $rsp = Http::send($req);
-        $info = Http::info();
+        $rsp = TencentyunHttp::send($req);
+        $info = TencentyunHttp::info();
         $ret = json_decode($rsp, true);
         if ($ret) {
             if (0 === $ret['code']) {
@@ -203,7 +202,7 @@ class ImageV2
 
         $expired = 0;
         $url = self::generateResUrl($bucket, $userid, $fileid, 'del');
-        $sign = Auth::getAppSignV2($bucket, $fileid, $expired);
+        $sign = TencentyunAuth::getAppSignV2($bucket, $fileid, $expired);
 
         $req = array(
             'url' => $url,
@@ -214,8 +213,8 @@ class ImageV2
             ),
         );
 
-        $rsp = Http::send($req);
-        $info = Http::info();
+        $rsp = TencentyunHttp::send($req);
+        $info = TencentyunHttp::info();
         $ret = json_decode($rsp, true);
         if ($ret) {
             if (0 === $ret['code']) {
@@ -232,12 +231,12 @@ class ImageV2
         if ($fileid) {
             $fileid = urlencode($fileid);
             if ($oper) {
-                return Conf::API_IMAGE_END_POINT_V2 . Conf::APPID . '/' . $bucket . '/' . $userid . '/' . $fileid . '/' . $oper;
+                return TencentyunConf::API_IMAGE_END_POINT_V2 . TencentyunConf::APPID . '/' . $bucket . '/' . $userid . '/' . $fileid . '/' . $oper;
             } else {
-                return Conf::API_IMAGE_END_POINT_V2 . Conf::APPID . '/' . $bucket . '/' . $userid . '/' . $fileid;
+                return TencentyunConf::API_IMAGE_END_POINT_V2 . TencentyunConf::APPID . '/' . $bucket . '/' . $userid . '/' . $fileid;
             }
         } else {
-            return Conf::API_IMAGE_END_POINT_V2 . Conf::APPID . '/' . $bucket . '/' . $userid;
+            return TencentyunConf::API_IMAGE_END_POINT_V2 . TencentyunConf::APPID . '/' . $bucket . '/' . $userid;
         }
     }
 

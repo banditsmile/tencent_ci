@@ -1,7 +1,5 @@
 <?php
-namespace Tencentyun;
-
-class Conf
+class TencentyunConf
 {
     const PKG_VERSION = '2.0.1'; 
 
@@ -13,11 +11,11 @@ class Conf
 		
     // 以下部分请您根据在qcloud申请到的项目id和对应的secret id和secret key进行修改
 
-    const APPID = '10000037';
+    const APPID = '10008565';
 
-    const SECRET_ID = 'AKIDpoKBfMK7aYcYNlqxnEtYA1ajAqji2P7T';
+    const SECRET_ID = 'AKIDSJ4ukIMmqScKYOTpEGosMRQOoj4CteA7';
 
-    const SECRET_KEY = 'P4FewbltIpGeAbwgdrG6eghMUVlpmjIe';
+    const SECRET_KEY = 'oR3Mt61TQep85na9rDziVvmSUNRBDv3L';
 
     // 以上部分请您根据在qcloud申请到的项目id和对应的secret id和secret key进行修改
 

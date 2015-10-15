@@ -1,8 +1,7 @@
 <?php
 
-namespace Tencentyun;
 
-class Video
+class TencentyunVideo
 {
 	public $appid;
 	public $userid;
@@ -36,7 +35,7 @@ class Video
 
 		$expired = time() + self::EXPIRED_SECONDS;
 		$url = self::generateResUrl($userid);
-		$sign = Auth::appSign($url, $expired);
+		$sign = TencentyunAuth::appSign($url, $expired);
 
 		$data = array(
             'FileContent' => '@'.$filePath,
@@ -61,8 +60,8 @@ class Video
             ),
         );
 
-		$rsp = Http::send($req);
-		$info = Http::info();
+		$rsp = TencentyunHttp::send($req);
+		$info = TencentyunHttp::info();
 		$ret = json_decode($rsp, true);
 
 		if ($ret) {
@@ -152,7 +151,7 @@ class Video
 
 		$expired = time() + self::EXPIRED_SECONDS;
 		$url = self::generateResUrl($userid, $fileid);
-		$sign = Auth::appSign($url, $expired);
+		$sign = TencentyunAuth::appSign($url, $expired);
 
 		$req = array(
             'url' => $url,
@@ -163,8 +162,8 @@ class Video
             ),
         );
 
-		$rsp = Http::send($req);
-		$info = Http::info();
+		$rsp = TencentyunHttp::send($req);
+		$info = TencentyunHttp::info();
 		$ret = json_decode($rsp, true);
 		if ($ret) {
 			if (0 === $ret['code']) {
@@ -199,7 +198,7 @@ class Video
 
 		$expired = time() + self::EXPIRED_SECONDS;
 		$url = self::generateResUrl($userid, $fileid, 'del');
-		$sign = Auth::appSign($url, $expired);
+		$sign = TencentyunAuth::appSign($url, $expired);
 
 		$req = array(
             'url' => $url,
@@ -210,8 +209,8 @@ class Video
             ),
         );
 
-		$rsp = Http::send($req);
-		$info = Http::info();
+		$rsp = TencentyunHttp::send($req);
+		$info = TencentyunHttp::info();
 		$ret = json_decode($rsp, true);
 		if ($ret) {
 			if (0 === $ret['code']) {
@@ -227,12 +226,12 @@ class Video
 	public static function generateResUrl($userid = 0, $fileid = null, $oper = '') {
 	    if ($fileid) {
 	        if ($oper) {
-	            return Conf::API_VIDEO_END_POINT . Conf::APPID . '/' . $userid . '/' . $fileid . '/' . $oper;
+	            return TencentyunConf::API_VIDEO_END_POINT . TencentyunConf::APPID . '/' . $userid . '/' . $fileid . '/' . $oper;
 	        } else {
-	            return Conf::API_VIDEO_END_POINT . Conf::APPID . '/' . $userid . '/' . $fileid;
+	            return TencentyunConf::API_VIDEO_END_POINT . TencentyunConf::APPID . '/' . $userid . '/' . $fileid;
 	        }
 	    } else {
-	        return Conf::API_VIDEO_END_POINT . Conf::APPID . '/' . $userid;
+	        return TencentyunConf::API_VIDEO_END_POINT . TencentyunConf::APPID . '/' . $userid;
 	    }
 	}
 
@@ -256,7 +255,7 @@ class Video
 
 		$expired = time() + self::EXPIRED_SECONDS;
 		$url = self::generateResUrl($userid);
-		$sign = Auth::appSign($url, $expired);
+		$sign = TencentyunAuth::appSign($url, $expired);
 		$sha1file = sha1_file($filePath);
 
 		$data = array(
@@ -287,8 +286,8 @@ class Video
             ),
         );
 
-		$rsp = Http::send($req);
-		$info = Http::info();
+		$rsp = TencentyunHttp::send($req);
+		$info = TencentyunHttp::info();
 		$ret = json_decode($rsp, true);
 		if ($ret) {
 			if (0 === $ret['code']) {
@@ -322,7 +321,7 @@ class Video
 	public static function upload_data($userid,$file_data,$session,$offset){
 		$expired = time() + self::EXPIRED_SECONDS;
 		$url = self::generateResUrl($userid);
-		$sign = Auth::appSign($url, $expired);
+		$sign = TencentyunAuth::appSign($url, $expired);
 
 		$data = array(
             'FileContent' => $file_data,
@@ -341,8 +340,8 @@ class Video
             ),
         );
 
-		$rsp = Http::send($req);
-		$info = Http::info();
+		$rsp = TencentyunHttp::send($req);
+		$info = TencentyunHttp::info();
 		$ret = json_decode($rsp, true);
 		if ($ret) {
 			if (0 === $ret['code']) {

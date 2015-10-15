@@ -1,7 +1,6 @@
 <?php
-namespace Tencentyun;
 
-class Auth
+class TencentyunAuth
 {
 
     const AUTH_URL_FORMAT_ERROR = -1;
@@ -17,9 +16,9 @@ class Auth
      */
     public static function getAppSignV2($bucket, $fileid, $expired, $userid = '0') {
 
-        $secretId = Conf::SECRET_ID;
-        $secretKey = Conf::SECRET_KEY;
-        $appid = Conf::APPID;
+        $secretId = TencentyunConf::SECRET_ID;
+        $secretKey = TencentyunConf::SECRET_KEY;
+        $appid = TencentyunConf::APPID;
         
         if (empty($secretId) || empty($secretKey) || empty($appid)) {
             return self::AUTH_SECRET_ID_KEY_ERROR;
@@ -52,8 +51,8 @@ class Auth
      */
     public static function appSignV2($url, $expired=0, $options=array()) {
 
-        $secretId = Conf::SECRET_ID;
-        $secretKey = Conf::SECRET_KEY;
+        $secretId = TencentyunConf::SECRET_ID;
+        $secretKey = TencentyunConf::SECRET_KEY;
 
         if (empty($secretId) || empty($secretKey)) {
             return self::AUTH_SECRET_ID_KEY_ERROR;
@@ -115,8 +114,8 @@ class Auth
      */
     public static function appSign($url, $expired) {
 
-        $secretId = Conf::SECRET_ID;
-        $secretKey = Conf::SECRET_KEY;
+        $secretId = TencentyunConf::SECRET_ID;
+        $secretKey = TencentyunConf::SECRET_KEY;
 
         if (empty($secretId) || empty($secretKey)) {
             return self::AUTH_SECRET_ID_KEY_ERROR;
@@ -166,9 +165,9 @@ class Auth
      */
     public static function appSign_once($fileid, $userid = '0') {
 
-        $secretId = Conf::SECRET_ID;
-        $secretKey = Conf::SECRET_KEY;
-		$appid = Conf::APPID;
+        $secretId = TencentyunConf::SECRET_ID;
+        $secretKey = TencentyunConf::SECRET_KEY;
+		$appid = TencentyunConf::APPID;
 		
         if (empty($secretId) || empty($secretKey) || empty($appid)) {
             return self::AUTH_SECRET_ID_KEY_ERROR;
@@ -200,9 +199,9 @@ class Auth
      */
     public static function appSign_more($expired,$userid = '0') {
 
-        $secretId = Conf::SECRET_ID;
-        $secretKey = Conf::SECRET_KEY;
-		$appid = Conf::APPID;
+        $secretId = TencentyunConf::SECRET_ID;
+        $secretKey = TencentyunConf::SECRET_KEY;
+		$appid = TencentyunConf::APPID;
 		
         if (empty($secretId) || empty($secretKey) || empty($appid)) {
             return self::AUTH_SECRET_ID_KEY_ERROR;
@@ -235,7 +234,7 @@ class Auth
      */
     public static function getInfoFromUrlV2($url) {
         $args = parse_url($url);
-        $endPointArgs_image = parse_url(Conf::API_IMAGE_END_POINT_V2);
+        $endPointArgs_image = parse_url(TencentyunConf::API_IMAGE_END_POINT_V2);
         // 非下载url
         if ($args['host'] == $endPointArgs_image['host']) {
             if (isset($args['path'])) {
@@ -308,8 +307,8 @@ class Auth
      */
 	public static function getInfoFromUrl($url) {
         $args = parse_url($url);
-        $endPointArgs_image = parse_url(Conf::API_IMAGE_END_POINT);
-		$endPointArgs_video = parse_url(Conf::API_VIDEO_END_POINT);
+        $endPointArgs_image = parse_url(TencentyunConf::API_IMAGE_END_POINT);
+		$endPointArgs_video = parse_url(TencentyunConf::API_VIDEO_END_POINT);
         // 非下载url
         if ($args['host'] == $endPointArgs_image['host'] || $args['host'] == $endPointArgs_video['host']) {
             if (isset($args['path'])) {

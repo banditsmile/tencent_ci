@@ -1,8 +1,7 @@
 <?php
 
-namespace Tencentyun;
 
-class Image
+class TencentyunImage
 {
     public $appid;
     public $userid;
@@ -50,7 +49,7 @@ class Image
 
         $expired = time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($userid);
-        $sign = Auth::appSign($url, $expired);
+        $sign = TencentyunAuth::appSign($url, $expired);
 
         // add get params to url
         if (isset($params['get']) && is_array($params['get'])) {
@@ -82,8 +81,8 @@ class Image
             ),
         );
 
-        $rsp = Http::send($req);
-        $info = Http::info();
+        $rsp = TencentyunHttp::send($req);
+        $info = TencentyunHttp::info();
         $ret = json_decode($rsp, true);
         if ($ret) {
             if (0 === $ret['code']) {
@@ -115,7 +114,7 @@ class Image
 
         $expired = time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($userid, $fileid);
-        $sign = Auth::appSign($url, $expired);
+        $sign = TencentyunAuth::appSign($url, $expired);
 
         $req = array(
             'url' => $url,
@@ -126,8 +125,8 @@ class Image
             ),
         );
 
-        $rsp = Http::send($req);
-        $info = Http::info();
+        $rsp = TencentyunHttp::send($req);
+        $info = TencentyunHttp::info();
         $ret = json_decode($rsp, true);
         if ($ret) {
             if (0 === $ret['code']) {
@@ -158,7 +157,7 @@ class Image
 
         $expired = time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($userid, $fileid, 'copy');
-        $sign = Auth::appSign($url, $expired);
+        $sign = TencentyunAuth::appSign($url, $expired);
 
         $req = array(
             'url' => $url,
@@ -169,8 +168,8 @@ class Image
             ),
         );
 
-        $rsp = Http::send($req);
-        $info = Http::info();
+        $rsp = TencentyunHttp::send($req);
+        $info = TencentyunHttp::info();
         $ret = json_decode($rsp, true);
         if ($ret) {
             if (0 === $ret['code']) {
@@ -198,7 +197,7 @@ class Image
 
         $expired = time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($userid, $fileid, 'del');
-        $sign = Auth::appSign($url, $expired);
+        $sign = TencentyunAuth::appSign($url, $expired);
 
         $req = array(
             'url' => $url,
@@ -209,8 +208,8 @@ class Image
             ),
         );
 
-        $rsp = Http::send($req);
-        $info = Http::info();
+        $rsp = TencentyunHttp::send($req);
+        $info = TencentyunHttp::info();
         $ret = json_decode($rsp, true);
         if ($ret) {
             if (0 === $ret['code']) {
@@ -226,12 +225,12 @@ class Image
     public static function generateResUrl($userid = 0, $fileid = null, $oper = '') {
         if ($fileid) {
             if ($oper) {
-                return Conf::API_IMAGE_END_POINT . Conf::APPID . '/' . $userid . '/' . $fileid . '/' . $oper;
+                return TencentyunConf::API_IMAGE_END_POINT . TencentyunConf::APPID . '/' . $userid . '/' . $fileid . '/' . $oper;
             } else {
-                return Conf::API_IMAGE_END_POINT . Conf::APPID . '/' . $userid . '/' . $fileid;
+                return TencentyunConf::API_IMAGE_END_POINT . TencentyunConf::APPID . '/' . $userid . '/' . $fileid;
             }
         } else {
-            return Conf::API_IMAGE_END_POINT . Conf::APPID . '/' . $userid;
+            return TencentyunConf::API_IMAGE_END_POINT . TencentyunConf::APPID . '/' . $userid;
         }
     }
 
